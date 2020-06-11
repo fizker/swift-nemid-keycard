@@ -1,7 +1,7 @@
 import XCTest
 
-import nemid_keycardTests
+import NemIDKeycardTests
 
 var tests = [XCTestCaseEntry]()
-tests += nemid_keycardTests.allTests()
+tests += NemIDKeycardTests.allTests()
 XCTMain(tests)

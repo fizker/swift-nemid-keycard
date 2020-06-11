@@ -6,6 +6,10 @@ let package = Package(
 	name: "nemid-keycard",
 	products: [
 		.library(
+			name: "NemIDKeycard",
+			targets: ["NemIDKeycard"]
+		),
+		.executable(
 			name: "nemid-keycard",
 			targets: ["nemid-keycard"]
 		),
@@ -15,11 +19,15 @@ let package = Package(
 	targets: [
 		.target(
 			name: "nemid-keycard",
+			dependencies: ["NemIDKeycard"]
+		),
+		.target(
+			name: "NemIDKeycard",
 			dependencies: []
 		),
 		.testTarget(
-			name: "nemid-keycardTests",
-			dependencies: ["nemid-keycard"]
+			name: "NemIDKeycardTests",
+			dependencies: ["NemIDKeycard"]
 		),
 	]
 )

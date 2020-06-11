@@ -1,5 +1,5 @@
 import XCTest
-import nemid_keycard
+import NemIDKeycard
 
 final class NIDKeycardTests: XCTestCase {
 	let card = NIDKeycard(id: "FOO123", keys: ["1234": "123456", "4321": "654321"])
