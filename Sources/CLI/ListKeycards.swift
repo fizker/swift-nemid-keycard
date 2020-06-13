@@ -1,7 +1,22 @@
 import ArgumentParser
+import NemIDKeycard
 
 struct ListKeycards: ParsableCommand {
+	@Option(default: DataURL(), transform: DataURL.init(string:))
+	var dataPath: DataURL
+
+	@Option(name: .shortAndLong)
+	var cpr: String?
+
 	func run() throws {
-		print("listing keycards")
+		let data = try DataReader(url: dataPath)
+
+		let identity = try data.identity(withCPR: cpr)
+
+		print("""
+			Keycards for \(identity.name) (\(identity.cpr)):
+			\(identity.keycards.map { "- \($0.id)" }.joined(separator: "\n"))
+			"""
+		)
 	}
 }
