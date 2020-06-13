@@ -1,1 +1,3 @@
-print(nemid_keycard().text)
+import CLI
+
+Program.main()
