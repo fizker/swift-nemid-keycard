@@ -1,5 +1,5 @@
 /// Represents a personal identity in the NemID system.
-public struct NIDIdentity: Codable {
+public struct Identity: Codable {
 	/// The key in the DanID system. This can be used at `https://appletk.danid.dk/developers/viewstatus.jsp?userid=<key>`.
 	public var danIDKey: Int
 	/// The name of the identity.
@@ -9,7 +9,7 @@ public struct NIDIdentity: Codable {
 	/// The password for the identity. This is not secured.
 	public var password: String
 	/// The key cards currently issued to the identity.
-	public var keycards: [NIDKeycard]
+	public var keycards: [Keycard]
 
 	/// The main init function.
 	/// - Parameter danIDKey: The key in the DanID system.
@@ -17,7 +17,7 @@ public struct NIDIdentity: Codable {
 	/// - Parameter cpr: The CPR number for the identity.
 	/// - Parameter password: The password for the identity.
 	/// - Parameter keyCards: The key cards currently issued to the identity.
-	public init(danIDKey: Int, name: String, cpr: String, password: String, keycards: [NIDKeycard]) {
+	public init(danIDKey: Int, name: String, cpr: String, password: String, keycards: [Keycard]) {
 		self.danIDKey = danIDKey
 		self.name = name
 		self.cpr = cpr

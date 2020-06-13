@@ -1,7 +1,7 @@
 import Foundation
 
 /// Represents a NemID Key card
-public struct NIDKeycard: Codable, Equatable {
+public struct Keycard: Codable, Equatable {
 	/// The unique key of the card itself. Example: G750159724.
 	public var id: String
 	/// The keys, with request as the dictionary key and response as the value.
@@ -26,7 +26,7 @@ public struct NIDKeycard: Codable, Equatable {
 	public func callAsFunction(key: String) -> String? { keys[key] }
 }
 
-public extension NIDKeycard {
+public extension Keycard {
 	enum E: Error {
 		case invalidPair(String)
 	}
@@ -35,7 +35,7 @@ public extension NIDKeycard {
 	/// The format comes from copying the content from DanID's site.
 	///
 	/// - Parameter string: The raw string that should be parsed.
-	/// - Returns: The parsed NIDKeycard, or `nil` if the input could not be parsed.
+	/// - Returns: The parsed `Keycard`, or `nil` if the input could not be parsed.
 	///
 	/// The format is a line first with the ID, then a header row that is ignored, followed by lines with the key-value parts
 	/// The data-lines have two tabs between key-value pairs, and a single tab between key and value.

@@ -1,8 +1,8 @@
 import XCTest
 import NemIDKeycard
 
-final class NIDKeycardTests: XCTestCase {
-	let card = NIDKeycard(id: "FOO123", keys: ["1234": "123456", "4321": "654321"])
+final class KeycardTests: XCTestCase {
+	let card = Keycard(id: "FOO123", keys: ["1234": "123456", "4321": "654321"])
 
 	func test_subscript_keyExists_returnsValue() {
 		XCTAssertEqual(card["1234"], "123456")
@@ -25,12 +25,12 @@ final class NIDKeycardTests: XCTestCase {
 	}
 
 	func test_equals() {
-		let tests:[(expected: Bool, a: NIDKeycard, b: NIDKeycard)] = [
-			(true, NIDKeycard(id: "F123", keys: [:]), NIDKeycard(id: "F123", keys: [:])),
-			(true, NIDKeycard(id: "F123", keys: ["a":"1"]), NIDKeycard(id: "F123", keys: ["a":"1"])),
-			(false, NIDKeycard(id: "F123", keys: [:]), NIDKeycard(id: "F1234", keys: [:])),
-			(false, NIDKeycard(id: "F123", keys: ["a":"1"]), NIDKeycard(id: "F123", keys: ["a":"2"])),
-			(false, NIDKeycard(id: "F123", keys: ["a":"1"]), NIDKeycard(id: "F123", keys: ["b":"1"])),
+		let tests:[(expected: Bool, a: Keycard, b: Keycard)] = [
+			(true, Keycard(id: "F123", keys: [:]), Keycard(id: "F123", keys: [:])),
+			(true, Keycard(id: "F123", keys: ["a":"1"]), Keycard(id: "F123", keys: ["a":"1"])),
+			(false, Keycard(id: "F123", keys: [:]), Keycard(id: "F1234", keys: [:])),
+			(false, Keycard(id: "F123", keys: ["a":"1"]), Keycard(id: "F123", keys: ["a":"2"])),
+			(false, Keycard(id: "F123", keys: ["a":"1"]), Keycard(id: "F123", keys: ["b":"1"])),
 		]
 
 		for (expected, a, b) in tests {
@@ -50,7 +50,7 @@ final class NIDKeycardTests: XCTestCase {
 			0203	044151		2856	879079		5230	830451		8168	727702
 			"""
 
-		let expected = NIDKeycard(id: "G750159724", keys: [
+		let expected = Keycard(id: "G750159724", keys: [
 			"0063": "103749", "2734": "413128", "5147": "625409", "7779": "946731",
 			"0087": "972967", "2797": "862321", "5164": "160737", "7991": "420288",
 			"0090": "873699", "2822": "439994", "5213": "600908", "8032": "089708",
@@ -58,7 +58,7 @@ final class NIDKeycardTests: XCTestCase {
 			"0203": "044151", "2856": "879079", "5230": "830451", "8168": "727702",
 		])
 
-		let actual = NIDKeycard(string: input)
+		let actual = Keycard(string: input)
 		XCTAssertEqual(expected, actual)
 	}
 
@@ -82,7 +82,7 @@ final class NIDKeycardTests: XCTestCase {
 		]
 
 		for input in inputs {
-			XCTAssertNil(NIDKeycard(string: input), input)
+			XCTAssertNil(Keycard(string: input), input)
 		}
 	}
 
