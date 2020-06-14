@@ -6,7 +6,12 @@ struct DataReader {
 	var identities: [Identity]
 
 	init(url: DataURL) throws {
-		let data = try Data(contentsOf: url.url)
+		let data: Data
+		do {
+			data = try Data(contentsOf: url.url)
+		} catch {
+			throw CLIError.dataNotFound(url.url)
+		}
 		let jsonDecoder = JSONDecoder()
 
 		identities = try jsonDecoder.decode([Identity].self, from: data)

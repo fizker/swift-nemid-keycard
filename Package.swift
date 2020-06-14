@@ -35,6 +35,12 @@ let package = Package(
 		),
 
 		.testTarget(
+			name: "nemid-keycardTests",
+			dependencies: [
+				"nemid-keycard",
+			]
+		),
+		.testTarget(
 			name: "CLITests",
 			dependencies: ["CLI"]
 		),

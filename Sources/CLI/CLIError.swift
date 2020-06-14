@@ -1,4 +1,10 @@
+import struct Foundation.URL
+
 enum CLIError: Error, CustomStringConvertible {
+	case invalidURL(String)
+
+	case dataNotFound(URL)
+
 	case identityNotFound(String)
 	case defaultIdentityNotFound
 	case identityAmbiguous
@@ -11,6 +17,12 @@ enum CLIError: Error, CustomStringConvertible {
 
 	var description: String {
 		switch self {
+		case let .invalidURL(string):
+			return "Could not parse URL: \(string)."
+
+		case let .dataNotFound(url):
+			return "Could not find any data at path \(url.prettyFileString). Use the --data option to indicate an alternate path."
+
 		case let .identityNotFound(cpr):
 			return "Could not find any identity with CPR \(cpr). See the available identities with the list-identities command."
 		case .defaultIdentityNotFound:
