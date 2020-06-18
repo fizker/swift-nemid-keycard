@@ -2,10 +2,13 @@ import Foundation
 import NemIDKeycard
 import ArgumentParser
 
-struct DataReader {
+struct JSONData {
+	private let url: DataURL
 	var identities: [Identity]
 
 	init(url: DataURL) throws {
+		self.url = url
+
 		let data: Data
 		do {
 			data = try Data(contentsOf: url.url)
@@ -15,6 +18,29 @@ struct DataReader {
 		let jsonDecoder = JSONDecoder()
 
 		identities = try jsonDecoder.decode([Identity].self, from: data)
+	}
+
+	func save() throws {
+		let encoder = JSONEncoder()
+		if #available(OSX 10.15, *) {
+			encoder.outputFormatting = [
+				.withoutEscapingSlashes,
+				.prettyPrinted,
+			]
+		} else {
+			encoder.outputFormatting = .prettyPrinted
+		}
+		let data = try encoder.encode(identities)
+
+		try data.write(to: url.url)
+	}
+
+	mutating func update(_ identity: Identity) {
+		if let index = identities.firstIndex(where: { $0.cpr == identity.cpr }) {
+			identities[index] = identity
+		} else {
+			identities.append(identity)
+		}
 	}
 
 	func identity(withCPR cpr: String) throws -> Identity {

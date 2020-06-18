@@ -5,7 +5,7 @@ struct ListIdentities: ParsableCommand {
 	var dataPath: DataURL
 
 	func run() throws {
-		let data = try DataReader(url: dataPath)
+		let data = try JSONData(url: dataPath)
 
 		guard !data.identities.isEmpty
 		else { return print("No identities found") }

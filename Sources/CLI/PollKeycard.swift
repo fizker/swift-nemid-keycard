@@ -11,7 +11,7 @@ struct PollKeycard: ParsableCommand {
 	var options: KeycardOptions
 
 	mutating func run() throws {
-		let data = try DataReader(url: options.dataURL)
+		let data = try JSONData(url: options.dataURL)
 
 		let keycard = try data.keycard(withID: options.keycardID, in: try data.identity(withCPR: options.cpr))
 

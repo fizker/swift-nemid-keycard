@@ -9,7 +9,7 @@ struct ListKeycards: ParsableCommand {
 	var cpr: String?
 
 	func run() throws {
-		let data = try DataReader(url: dataPath)
+		let data = try JSONData(url: dataPath)
 
 		let identity = try data.identity(withCPR: cpr)
 
