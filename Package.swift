@@ -15,15 +15,34 @@ let package = Package(
 		),
 	],
 	dependencies: [
+		.package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMinor(from: "0.1.0")),
 	],
 	targets: [
 		.target(
 			name: "nemid-keycard",
-			dependencies: ["NemIDKeycard"]
+			dependencies: [ "CLI" ]
+		),
+		.target(
+			name: "CLI",
+			dependencies: [
+				"NemIDKeycard",
+				.product(name: "ArgumentParser", package: "swift-argument-parser"),
+			]
 		),
 		.target(
 			name: "NemIDKeycard",
 			dependencies: []
+		),
+
+		.testTarget(
+			name: "nemid-keycardTests",
+			dependencies: [
+				"nemid-keycard",
+			]
+		),
+		.testTarget(
+			name: "CLITests",
+			dependencies: ["CLI"]
 		),
 		.testTarget(
 			name: "NemIDKeycardTests",
