@@ -42,3 +42,17 @@ enum CLIError: Error, CustomStringConvertible {
 		}
 	}
 }
+
+enum CLICreateKeycardError: Error, CustomStringConvertible {
+	case keycardKeyExists(key: String)
+	case keycardCouldNotBeParsed
+
+	var description: String {
+		switch self {
+		case let .keycardKeyExists(key):
+			return "Another keycard already exists with the same key: \(key)"
+		case .keycardCouldNotBeParsed:
+			return "Could not parse keycard."
+		}
+	}
+}
