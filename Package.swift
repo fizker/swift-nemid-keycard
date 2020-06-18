@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-	name: "nemid-keycard",
+	name: "swift-nemid-keycard",
 	products: [
 		.library(
 			name: "NemIDKeycard",
