@@ -1,7 +1,7 @@
 import Foundation
 
 /// Represents a NemID Key card
-public struct Keycard: Codable, Equatable {
+public struct Keycard: Codable, Equatable, Identifiable {
 	/// The unique key of the card itself. Example: G750159724.
 	public var id: String
 	/// The keys, with request as the dictionary key and response as the value.

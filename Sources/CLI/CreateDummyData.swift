@@ -4,7 +4,7 @@ import NemIDKeycard
 
 let dummyData = [
 	Identity(
-		danIDKey: 1234,
+		id: 1234,
 		name: "Foo bar",
 		cpr: "1234567890",
 		password: "very secure",
