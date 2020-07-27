@@ -4,12 +4,14 @@ A convenience CLI application and Swift library for managing test versions of Ne
 
 Note that this code should only be used with test versions of NemID. There are practically no security built in. For non-test versions, please use only the official NemID solutions.
 
+
 ## How to use the CLI tool
 
 To install the binary, perform the following steps:
 
 1. Clone the code or download the latest version from the GitHub releases page.
 2. From the downloaded folder, do `make && make install`.
+
 
 ## How to import the library
 
