@@ -13,10 +13,24 @@ struct ListKeycards: ParsableCommand {
 
 		let identity = try data.identity(withCPR: cpr)
 
-		print("""
-			Keycards for \(identity.name) (\(identity.cpr)):
-			\(identity.keycards.map { "- \($0.id)" }.joined(separator: "\n"))
-			"""
-		)
+		if let nemIDCredentials = identity.nemIDCredentials {
+			print("""
+				Keycards for \(identity.name) (\(identity.cpr)):
+				\(nemIDCredentials.keycards.map { "- \($0.id)" }.joined(separator: "\n"))
+				"""
+			)
+		} else {
+			print("No NemID credentials present.")
+		}
+
+		if let mitIDCredentials = identity.mitIDTestCredentials {
+			print("""
+				MitID:
+				- Username: \(mitIDCredentials.username)
+				- Password: \(mitIDCredentials.password)
+				""")
+		} else {
+			print("No MitID credentials present.")
+		}
 	}
 }

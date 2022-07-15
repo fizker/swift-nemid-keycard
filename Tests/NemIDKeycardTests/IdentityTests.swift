@@ -27,21 +27,24 @@ final class IdentityTests: XCTestCase {
 		let actual = try decode(json)
 
 		let expected = Identity(
-			id: 778217849,
 			name: "Thalia Nilsson",
 			cpr: "0101005143",
-			password: "asasas12",
-			keycards: [
-				.init(
-					id: "O310143093",
-					keys: [
-						"0038": "641616",
-						"0057": "599373",
-						"0093": "929235",
-						"9965": "133251",
-					]
-				)
-			]
+			nemIDCredentials: .init(
+				id: 778217849,
+				password: "asasas12",
+				keycards: [
+					.init(
+						id: "O310143093",
+						keys: [
+							"0038": "641616",
+							"0057": "599373",
+							"0093": "929235",
+							"9965": "133251",
+						]
+					)
+				]
+			),
+			mitIDTestCredentials: nil
 		)
 
 		XCTAssertEqual(expected, actual)
@@ -49,21 +52,24 @@ final class IdentityTests: XCTestCase {
 
 	func test__encodeToEncoder__v1JSON__encodesAsExpected() throws {
 		let identity = Identity(
-			id: 778217849,
 			name: "Thalia Nilsson",
 			cpr: "0101005143",
-			password: "asasas12",
-			keycards: [
-				.init(
-					id: "O310143093",
-					keys: [
-						"0038": "641616",
-						"0057": "599373",
-						"0093": "929235",
-						"9965": "133251",
-					]
-				)
-			]
+			nemIDCredentials: .init(
+				id: 778217849,
+				password: "asasas12",
+				keycards: [
+					.init(
+						id: "O310143093",
+						keys: [
+							"0038": "641616",
+							"0057": "599373",
+							"0093": "929235",
+							"9965": "133251",
+						]
+					)
+				]
+			),
+			mitIDTestCredentials: nil
 		)
 
 		let actual = try encode(identity)
