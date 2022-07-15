@@ -1,7 +1,7 @@
 import Foundation
 
 /// Represents a personal identity in the NemID system.
-public struct Identity: Codable, Identifiable {
+public struct Identity: Codable, Identifiable, Equatable {
 	/// The key in the DanID system. This can be used at `https://appletk.danid.dk/developers/viewstatus.jsp?userid=<key>`.
 	public var id: Int
 	/// The name of the identity.
