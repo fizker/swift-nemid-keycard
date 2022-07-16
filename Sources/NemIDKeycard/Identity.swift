@@ -1,41 +1,5 @@
 import Foundation
 
-/// Credentials for the MitID Test Login service.
-public struct MitIDCredentials: Codable, Equatable {
-	/// The username for the MitID Test Login service.
-	public var username: String
-	/// The password for the MitID Test Login service.
-	public var password: String
-
-	/// Creates a new ``MitIDCredentials``.
-	/// - Parameter username: The login username.
-	/// - Parameter password: The login password.
-	public init(username: String, password: String) {
-		self.username = username
-		self.password = password
-	}
-}
-
-/// Credentials for using NemID keycards.
-public struct NemIDCredentials: Codable, Equatable {
-	/// The key in the DanID system. This can be used at `https://appletk.danid.dk/developers/viewstatus.jsp?userid=<key>`.
-	public var id: Int
-	/// The password for the identity. This is not secured.
-	public var password: String
-	/// The key cards currently issued to the identity.
-	public var keycards: [Keycard]
-
-	/// Creates a new ``NemIDCredentials``.
-	/// - Parameter id: The key in the DanID system.
-	/// - Parameter password: The password for the identity.
-	/// - Parameter keyCards: The key cards currently issued to the identity.
-	public init(id: Int, password: String, keycards: [Keycard]) {
-		self.id = id
-		self.password = password
-		self.keycards = keycards
-	}
-}
-
 /// Represents a personal identity in the NemID system.
 public struct Identity: Codable, Identifiable, Equatable {
 	/// The CPR value is used to satisfy the `Identifiable` protocol.
