@@ -85,13 +85,4 @@ final class KeycardTests: XCTestCase {
 			XCTAssertNil(Keycard(string: input), input)
 		}
 	}
-
-	static var allTests = [
-		("test_subscript_keyExists_returnsValue", test_subscript_keyExists_returnsValue),
-		("test_subscript_keyDoesNotExists_returnsNil", test_subscript_keyDoesNotExists_returnsNil),
-		("test_callable_keyExists_returnsValue", test_callable_keyExists_returnsValue),
-		("test_callable_keyDoesNotExists_returnsNil", test_callable_keyDoesNotExists_returnsNil),
-		("test_initWithDSL_validDSL_returnsCard", test_initWithDSL_validDSL_returnsCard),
-		("test_initWithDSL_invalidDSLs_returnsNil", test_initWithDSL_invalidDSLs_returnsNil),
-	]
 }

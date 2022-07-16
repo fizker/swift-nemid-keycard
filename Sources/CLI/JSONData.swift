@@ -70,12 +70,12 @@ struct JSONData {
 
 	func keycard(withID id: String?, in identity: Identity) throws -> Keycard {
 		if let id = id {
-			guard let keycard = identity.keycards.first(where: { $0.id == id })
+			guard let keycard = identity.nemIDCredentials?.keycards.first(where: { $0.id == id })
 			else { throw CLIError.keycardNotFound(id) }
 
 			return keycard
 		} else {
-			guard let keycard = identity.keycards.first
+			guard let keycard = identity.nemIDCredentials?.keycards.first
 			else { throw CLIError.defaultKeycardNotFound }
 
 			return keycard

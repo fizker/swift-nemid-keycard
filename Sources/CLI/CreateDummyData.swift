@@ -4,16 +4,19 @@ import NemIDKeycard
 
 let dummyData = [
 	Identity(
-		id: 1234,
 		name: "Foo bar",
 		cpr: "1234567890",
-		password: "very secure",
-		keycards: [
-			Keycard(id: "ABC123", keys: [
-				"firstKey": "firstValue",
-				"secondKey": "secondValue",
-			]),
-		]
+		nemIDCredentials: .init(
+			id: 1234,
+			password: "very secure",
+			keycards: [
+				Keycard(id: "ABC123", keys: [
+					"firstKey": "firstValue",
+					"secondKey": "secondValue",
+				]),
+			]
+		),
+		mitIDCredentials: .init(username: "Foo", password: "Secret Foo")
 	),
 ]
 
