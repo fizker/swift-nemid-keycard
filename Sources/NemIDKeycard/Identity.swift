@@ -61,4 +61,17 @@ public struct Identity: Codable, Identifiable, Equatable {
 		self.nemIDCredentials = nemIDCredentials
 		self.mitIDTestCredentials = mitIDTestCredentials
 	}
+
+	public init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		self.name = try container.decode(String.self, forKey: .name)
+		self.cpr = try container.decode(String.self, forKey: .cpr)
+		self.nemIDCredentials = try container.decodeIfPresent(NemIDCredentials.self, forKey: .nemIDCredentials)
+		self.mitIDTestCredentials = try container.decodeIfPresent(MitIDTestCredentials.self, forKey: .mitIDTestCredentials)
+
+		// Fallback to the old JSON version
+		if nemIDCredentials == nil, let oldCredentials = try? NemIDCredentials(from: decoder) {
+			nemIDCredentials = oldCredentials
+		}
+	}
 }

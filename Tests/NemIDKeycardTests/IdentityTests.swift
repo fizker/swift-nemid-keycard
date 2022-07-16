@@ -50,7 +50,56 @@ final class IdentityTests: XCTestCase {
 		XCTAssertEqual(expected, actual)
 	}
 
-	func test__encodeToEncoder__v1JSON__encodesAsExpected() throws {
+	func test__initFromDecoder__nemIDCredentialsPresent_mitIDCredentialsMissing__decodesAsExpected() throws {
+		let json = """
+		{
+		  "cpr" : "0101005143",
+		  "name" : "Thalia Nilsson",
+		  "nemIDCredentials" : {
+		    "id" : 778217849,
+		    "keycards" : [
+		      {
+		        "id" : "O310143093",
+		        "keys" : {
+		          "0038" : "641616",
+		          "0057" : "599373",
+		          "0093" : "929235",
+		          "9965" : "133251"
+		        }
+		      }
+		    ],
+		    "password" : "asasas12"
+		  }
+		}
+		"""
+
+		let actual = try decode(json)
+
+		let expected = Identity(
+			name: "Thalia Nilsson",
+			cpr: "0101005143",
+			nemIDCredentials: .init(
+				id: 778217849,
+				password: "asasas12",
+				keycards: [
+					.init(
+						id: "O310143093",
+						keys: [
+							"0038": "641616",
+							"0057": "599373",
+							"0093": "929235",
+							"9965": "133251",
+						]
+					)
+				]
+			),
+			mitIDTestCredentials: nil
+		)
+
+		XCTAssertEqual(expected, actual)
+	}
+
+	func test__encodeToEncoder__nemIDCredentialsPresent_mitIDCredentialsMissing__encodesAsExpected() throws {
 		let identity = Identity(
 			name: "Thalia Nilsson",
 			cpr: "0101005143",
@@ -77,20 +126,22 @@ final class IdentityTests: XCTestCase {
 		let expected = """
 		{
 		  "cpr" : "0101005143",
-		  "id" : 778217849,
-		  "keycards" : [
-		    {
-		      "id" : "O310143093",
-		      "keys" : {
-		        "0038" : "641616",
-		        "0057" : "599373",
-		        "0093" : "929235",
-		        "9965" : "133251"
-		      }
-		    }
-		  ],
 		  "name" : "Thalia Nilsson",
-		  "password" : "asasas12"
+		  "nemIDCredentials" : {
+		    "id" : 778217849,
+		    "keycards" : [
+		      {
+		        "id" : "O310143093",
+		        "keys" : {
+		          "0038" : "641616",
+		          "0057" : "599373",
+		          "0093" : "929235",
+		          "9965" : "133251"
+		        }
+		      }
+		    ],
+		    "password" : "asasas12"
+		  }
 		}
 		"""
 
