@@ -23,7 +23,7 @@ struct ListKeycards: ParsableCommand {
 			print("No NemID credentials present.")
 		}
 
-		if let mitIDCredentials = identity.mitIDTestCredentials {
+		if let mitIDCredentials = identity.mitIDCredentials {
 			print("""
 				MitID:
 				- Username: \(mitIDCredentials.username)

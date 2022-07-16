@@ -1,13 +1,13 @@
 import Foundation
 
 /// Credentials for the MitID Test Login service.
-public struct MitIDTestCredentials: Codable, Equatable {
+public struct MitIDCredentials: Codable, Equatable {
 	/// The username for the MitID Test Login service.
 	public var username: String
 	/// The password for the MitID Test Login service.
 	public var password: String
 
-	/// Creates a new MitIDTestCredentials.
+	/// Creates a new ``MitIDCredentials``.
 	/// - Parameter username: The login username.
 	/// - Parameter password: The login password.
 	public init(username: String, password: String) {
@@ -25,7 +25,7 @@ public struct NemIDCredentials: Codable, Equatable {
 	/// The key cards currently issued to the identity.
 	public var keycards: [Keycard]
 
-	/// Creates a new NemIDCredentials.
+	/// Creates a new ``NemIDCredentials``.
 	/// - Parameter id: The key in the DanID system.
 	/// - Parameter password: The password for the identity.
 	/// - Parameter keyCards: The key cards currently issued to the identity.
@@ -48,18 +48,18 @@ public struct Identity: Codable, Identifiable, Equatable {
 	/// Associated credentials using NemID keycards.
 	public var nemIDCredentials: NemIDCredentials?
 	/// Associated test credentials for using MitID Test Login.
-	public var mitIDTestCredentials: MitIDTestCredentials?
+	public var mitIDCredentials: MitIDCredentials?
 
 	/// The main init function.
 	/// - Parameter name: The name of the identity.
 	/// - Parameter cpr: The CPR number for the identity.
 	/// - Parameter nemIDCredentials: Credentials for using NemID keycards.
-	/// - Parameter mitIDTestCredentials: Credentials for using the MitID Test login service.
-	public init(name: String, cpr: String, nemIDCredentials: NemIDCredentials?, mitIDTestCredentials: MitIDTestCredentials?) {
+	/// - Parameter mitIDCredentials: Credentials for using the MitID Test login service.
+	public init(name: String, cpr: String, nemIDCredentials: NemIDCredentials?, mitIDCredentials: MitIDCredentials?) {
 		self.name = name
 		self.cpr = cpr
 		self.nemIDCredentials = nemIDCredentials
-		self.mitIDTestCredentials = mitIDTestCredentials
+		self.mitIDCredentials = mitIDCredentials
 	}
 
 	public init(from decoder: Decoder) throws {
@@ -67,7 +67,7 @@ public struct Identity: Codable, Identifiable, Equatable {
 		self.name = try container.decode(String.self, forKey: .name)
 		self.cpr = try container.decode(String.self, forKey: .cpr)
 		self.nemIDCredentials = try container.decodeIfPresent(NemIDCredentials.self, forKey: .nemIDCredentials)
-		self.mitIDTestCredentials = try container.decodeIfPresent(MitIDTestCredentials.self, forKey: .mitIDTestCredentials)
+		self.mitIDCredentials = try container.decodeIfPresent(MitIDCredentials.self, forKey: .mitIDCredentials)
 
 		// Fallback to the old JSON version
 		if nemIDCredentials == nil, let oldCredentials = try? NemIDCredentials(from: decoder) {

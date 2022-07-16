@@ -16,7 +16,7 @@ let dummyData = [
 				]),
 			]
 		),
-		mitIDTestCredentials: .init(username: "Foo", password: "Secret Foo")
+		mitIDCredentials: .init(username: "Foo", password: "Secret Foo")
 	),
 ]
 

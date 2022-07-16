@@ -44,7 +44,7 @@ final class IdentityTests: XCTestCase {
 					)
 				]
 			),
-			mitIDTestCredentials: nil
+			mitIDCredentials: nil
 		)
 
 		XCTAssertEqual(expected, actual)
@@ -93,7 +93,7 @@ final class IdentityTests: XCTestCase {
 					)
 				]
 			),
-			mitIDTestCredentials: nil
+			mitIDCredentials: nil
 		)
 
 		XCTAssertEqual(expected, actual)
@@ -118,7 +118,7 @@ final class IdentityTests: XCTestCase {
 					)
 				]
 			),
-			mitIDTestCredentials: nil
+			mitIDCredentials: nil
 		)
 
 		let actual = try encode(identity)
