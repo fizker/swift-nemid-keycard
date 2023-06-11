@@ -6,6 +6,7 @@ let dummyData = [
 	Identity(
 		name: "Foo bar",
 		cpr: "1234567890",
+		environment: .nemLogInPreProd,
 		nemIDCredentials: .init(
 			id: 1234,
 			password: "very secure",

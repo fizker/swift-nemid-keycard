@@ -29,6 +29,7 @@ final class IdentityTests: XCTestCase {
 		let expected = Identity(
 			name: "Thalia Nilsson",
 			cpr: "0101005143",
+			environment: nil,
 			nemIDCredentials: .init(
 				id: 778217849,
 				password: "asasas12",
@@ -78,6 +79,7 @@ final class IdentityTests: XCTestCase {
 		let expected = Identity(
 			name: "Thalia Nilsson",
 			cpr: "0101005143",
+			environment: nil,
 			nemIDCredentials: .init(
 				id: 778217849,
 				password: "asasas12",
@@ -103,6 +105,7 @@ final class IdentityTests: XCTestCase {
 		let identity = Identity(
 			name: "Thalia Nilsson",
 			cpr: "0101005143",
+			environment: nil,
 			nemIDCredentials: .init(
 				id: 778217849,
 				password: "asasas12",
@@ -165,6 +168,7 @@ final class IdentityTests: XCTestCase {
 		let expected = Identity(
 			name: "Thalia Nilsson",
 			cpr: "0101005143",
+			environment: nil,
 			nemIDCredentials: nil,
 			mitIDCredentials: .init(username: "foo", password: "asasas12")
 		)
@@ -176,6 +180,7 @@ final class IdentityTests: XCTestCase {
 		let identity = Identity(
 			name: "Thalia Nilsson",
 			cpr: "0101005143",
+			environment: nil,
 			nemIDCredentials: nil,
 			mitIDCredentials: .init(username: "foo", password: "asasas12")
 		)
@@ -228,6 +233,7 @@ final class IdentityTests: XCTestCase {
 		let expected = Identity(
 			name: "Thalia Nilsson",
 			cpr: "0101005143",
+			environment: nil,
 			nemIDCredentials: .init(
 				id: 778217849,
 				password: "asasas12",
@@ -253,6 +259,7 @@ final class IdentityTests: XCTestCase {
 		let identity = Identity(
 			name: "Thalia Nilsson",
 			cpr: "0101005143",
+			environment: nil,
 			nemIDCredentials: .init(
 				id: 778217849,
 				password: "asasas12",
@@ -302,16 +309,96 @@ final class IdentityTests: XCTestCase {
 		XCTAssertEqual(expected, actual)
 	}
 
-	func encode(_ identity: Identity) throws -> String {
+	func test__initWithDecoder__environmentIsPresent_environmentIsAKnownValue__decodesAsExpected() throws {
+		let identities: [Identity] = [
+			.init(
+				name: "preprod",
+				cpr: "1234567890",
+				environment: .nemLogInPreProd,
+				nemIDCredentials: nil,
+				mitIDCredentials: nil
+			),
+			.init(
+				name: "devtest4",
+				cpr: "1234567890",
+				environment: .nemLogInDevTest4,
+				nemIDCredentials: nil,
+				mitIDCredentials: nil
+			),
+		]
+
+		XCTAssertEqual(identities.count, Identity.Environment.allCases.count, "All environments should be tested")
+
+		let json = """
+		[
+		  {
+		    "cpr" : "1234567890",
+		    "environment" : "NemLog-in PreProd",
+		    "name" : "preprod"
+		  },
+		  {
+		    "cpr" : "1234567890",
+		    "environment" : "NemLog-in DevTest4",
+		    "name" : "devtest4"
+		  }
+		]
+		"""
+
+		let actual = try decode(json, to: [Identity].self)
+
+		XCTAssertEqual(identities, actual)
+	}
+
+	func test__encodeToEncoder__environmentIsSet__encodesAsExpected() throws {
+		let identities: [Identity] = [
+			.init(
+				name: "preprod",
+				cpr: "1234567890",
+				environment: .nemLogInPreProd,
+				nemIDCredentials: nil,
+				mitIDCredentials: nil
+			),
+			.init(
+				name: "devtest4",
+				cpr: "1234567890",
+				environment: .nemLogInDevTest4,
+				nemIDCredentials: nil,
+				mitIDCredentials: nil
+			),
+		]
+
+		XCTAssertEqual(identities.count, Identity.Environment.allCases.count, "All environments should be tested")
+
+		let expected = """
+		[
+		  {
+		    "cpr" : "1234567890",
+		    "environment" : "NemLog-in PreProd",
+		    "name" : "preprod"
+		  },
+		  {
+		    "cpr" : "1234567890",
+		    "environment" : "NemLog-in DevTest4",
+		    "name" : "devtest4"
+		  }
+		]
+		"""
+
+		let actual = try encode(identities)
+
+		XCTAssertEqual(expected, actual)
+	}
+
+	func encode(_ identity: some Codable) throws -> String {
 		let encoder = JSONEncoder()
 		encoder.outputFormatting = [ .sortedKeys, .prettyPrinted ]
 		let data = try encoder.encode(identity)
 		return String(data: data, encoding: .utf8)!
 	}
 
-	func decode(_ json: String) throws -> Identity {
+	func decode<T: Decodable>(_ json: String, to type: T.Type = Identity.self) throws -> T {
 		let decoder = JSONDecoder()
-		let identity = try decoder.decode(Identity.self, from: json.data(using: .utf8)!)
+		let identity = try decoder.decode(T.self, from: json.data(using: .utf8)!)
 		return identity
 	}
 }
